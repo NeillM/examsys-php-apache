@@ -40,10 +40,9 @@ if (empty($missing)) {
     $exitcode = 1;
 }
 
-if (php_sapi_name() === 'cli') {
+if (php_sapi_name() !== 'cli') {
     header("HTTP/1.1 $httpcode - $status");
-} else {
-    echo "$status\n";
 }
 
+echo "$status\n";
 exit($exitcode);
