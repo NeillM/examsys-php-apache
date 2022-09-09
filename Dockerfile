@@ -1,4 +1,4 @@
-FROM php:8.0-apache
+FROM php:8.1-apache
 
 # Configure virtual hosts
 COPY conf/rogo.conf /etc/apache2/sites-available/rogo.conf
