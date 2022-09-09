@@ -34,7 +34,6 @@ RUN a2enmod rewrite \
 && a2enmod ssl \
 && a2dissite 000-default \
 && a2ensite rogo \
-&& rm -rf /var/www/html
 
 # rogo php settings
 COPY conf/rogo.ini /usr/local/etc/php/conf.d/rogo.ini
