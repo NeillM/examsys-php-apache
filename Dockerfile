@@ -48,4 +48,4 @@ RUN service apache2 restart \
 && mkdir /rogodatabehat \
 && chown -R www-data:www-data /rogodatabehat
 
-WORKDIR /var/www
+WORKDIR /var/www/html
