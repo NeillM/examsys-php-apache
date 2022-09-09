@@ -1,6 +1,12 @@
 FROM php:7.4-apache
 
-# Install the php extensions and nodjs.
+# Configure virtual hosts
+COPY conf/rogo.conf /etc/apache2/sites-available/rogo.conf
+
+# PHP settings
+COPY conf/rogo.ini /usr/local/etc/php/conf.d/rogo.ini
+
+# Install and configure everything!
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN apt-get update \
 && apt-get install --no-install-recommends -y \
@@ -24,22 +30,11 @@ RUN apt-get update \
 && curl -sL  https://www.npmjs.com/install.sh | bash - \
 && npm config set bin-links false \
 && apt-get clean \
-&& rm -rf /var/lib/apt/lists/*
-
-# create virtual hosts
-COPY conf/rogo.conf /etc/apache2/sites-available/rogo.conf
-
-# enable apache mods, and setup the virtual hosts
-RUN a2enmod rewrite \
+&& rm -rf /var/lib/apt/lists/* \
+&& a2enmod rewrite \
 && a2enmod ssl \
 && a2dissite 000-default \
 && a2ensite rogo \
-
-# rogo php settings
-COPY conf/rogo.ini /usr/local/etc/php/conf.d/rogo.ini
-
-# restart apache, then configure directories and install nodejs.
-RUN service apache2 restart \
 && mkdir /rogodata \
 && chown -R www-data:www-data /rogodata \
 && mkdir /rogodataunit \
