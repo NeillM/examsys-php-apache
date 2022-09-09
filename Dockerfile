@@ -23,7 +23,7 @@ RUN apt-get update \
     nodejs="12.22.*" \
     ssl-cert="1.1.*" \
 && docker-php-ext-configure gd --with-freetype --with-jpeg \
-&& docker-php-ext-install -j$(nproc) gd \
+&& docker-php-ext-install -j"$(nproc)" gd \
 && docker-php-ext-install curl xml xmlrpc mysqli intl ldap mbstring zip pdo_mysql sockets \
 && pecl install memcached xdebug \
 && docker-php-ext-enable memcached xdebug \
