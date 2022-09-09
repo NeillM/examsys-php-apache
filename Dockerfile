@@ -2,7 +2,7 @@ FROM php:7.4-apache
 
 # Install the php extensions and nodjs.
 RUN apt-get update \
-&& apt-get install -y \
+&& apt-get install --no-install-recommends -y \
     libfreetype6-dev \
     libjpeg62-turbo-dev \
     libpng-dev \
@@ -16,10 +16,10 @@ RUN apt-get update \
 && docker-php-ext-install -j$(nproc) gd \
 && docker-php-ext-install curl xml xmlrpc mysqli intl ldap mbstring zip pdo_mysql sockets \
 && apt-get update \
-&& apt-get install -y libmemcached-dev \
+&& apt-get install --no-install-recommends -y libmemcached-dev \
 && pecl install memcached xdebug \
 && docker-php-ext-enable memcached xdebug \
-&& apt-get installs -y nodejs \
+&& apt-get install --no-install-recommends -y nodejs \
 && curl -sL  https://www.npmjs.com/install.sh | bash - \
 && npm config set bin-links false \
 
