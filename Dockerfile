@@ -22,6 +22,8 @@ RUN apt-get update \
 && apt-get install --no-install-recommends -y nodejs \
 && curl -sL  https://www.npmjs.com/install.sh | bash - \
 && npm config set bin-links false \
+&& apt-get clean \
+&& rm -rf /var/lib/apt/lists/*
 
 # create virtual hosts
 COPY conf/rogo.conf /etc/apache2/sites-available/rogo.conf
