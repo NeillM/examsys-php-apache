@@ -4,23 +4,23 @@ FROM php:7.4-apache
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN apt-get update \
 && apt-get install --no-install-recommends -y \
-    libfreetype6-dev \
-    libjpeg62-turbo-dev \
-    libpng-dev \
-    libcurl4-openssl-dev \
-    libxml2-dev \
-    libldap-dev \
-    ssl-cert gnupg \
-    libzip-dev \
-    libonig-dev \
+    gnupg="2.2.*" \
+    libcurl4-openssl-dev="7.74.*" \
+    libfreetype6-dev="2.10.*" \
+    libjpeg62-turbo-dev="1:2.0.*" \
+    libldap2-dev="2.4.*" \
+    libmemcached-dev="1.0.*" \
+    libonig-dev="6.9.*" \
+    libpng-dev="1.6.*" \
+    libxml2-dev="2.9.*" \
+    libzip-dev="1.7.*" \
+    nodejs="12.22.*" \
+    ssl-cert="1.1.*" \
 && docker-php-ext-configure gd --with-freetype --with-jpeg \
 && docker-php-ext-install -j$(nproc) gd \
 && docker-php-ext-install curl xml xmlrpc mysqli intl ldap mbstring zip pdo_mysql sockets \
-&& apt-get update \
-&& apt-get install --no-install-recommends -y libmemcached-dev \
 && pecl install memcached xdebug \
 && docker-php-ext-enable memcached xdebug \
-&& apt-get install --no-install-recommends -y nodejs \
 && curl -sL  https://www.npmjs.com/install.sh | bash - \
 && npm config set bin-links false \
 && apt-get clean \
