@@ -2,11 +2,11 @@
 
 A PHP environment configured for ExamSys development.
 
-Versions
+## Versions
 
-| PHP Version | Tags | Status | Notes |
-|-------------|------|--------|-------|
-| PHP 7.4     | 7.4  |        |       |
+| PHP Version | Tags |
+|-------------|------|
+| PHP 7.4     | 7.4  |
 
 ## Example useage
 
