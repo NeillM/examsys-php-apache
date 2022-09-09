@@ -1,14 +1,27 @@
 FROM php:7.4-apache
 
-# Install the php extensions.
+# Install the php extensions and nodjs.
 RUN apt-get update \
-&& apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev libcurl4-openssl-dev libxml2-dev libldap-dev ssl-cert gnupg libzip-dev libonig-dev \
+&& apt-get install -y \
+    libfreetype6-dev \
+    libjpeg62-turbo-dev \
+    libpng-dev \
+    libcurl4-openssl-dev \
+    libxml2-dev \
+    libldap-dev \
+    ssl-cert gnupg \
+    libzip-dev \
+    libonig-dev \
 && docker-php-ext-configure gd --with-freetype --with-jpeg \
 && docker-php-ext-install -j$(nproc) gd \
 && docker-php-ext-install curl xml xmlrpc mysqli intl ldap mbstring zip pdo_mysql sockets \
-&& apt-get update && apt-get install -y libmemcached-dev \
+&& apt-get update \
+&& apt-get install -y libmemcached-dev \
 && pecl install memcached xdebug \
-&& docker-php-ext-enable memcached xdebug
+&& docker-php-ext-enable memcached xdebug \
+&& apt-get installs -y nodejs \
+&& curl -sL  https://www.npmjs.com/install.sh | bash - \
+&& npm config set bin-links false \
 
 # create virtual hosts
 COPY conf/rogo.conf /etc/apache2/sites-available/rogo.conf
@@ -30,9 +43,6 @@ RUN service apache2 restart \
 && mkdir /rogodataunit \
 && chown -R www-data:www-data /rogodataunit \
 && mkdir /rogodatabehat \
-&& chown -R www-data:www-data /rogodatabehat \
-&& apt-get install -y nodejs \
-&& curl -sL  https://www.npmjs.com/install.sh | bash - \
-&& npm config set bin-links false
+&& chown -R www-data:www-data /rogodatabehat
 
 WORKDIR /var/www
