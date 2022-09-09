@@ -35,7 +35,9 @@ RUN service apache2 restart
 RUN mkdir /rogodata
 RUN chown -R www-data:www-data /rogodata
 RUN mkdir /rogodataunit
+RUN chown -R www-data:www-data /rogodataunit
 RUN mkdir /rogodatabehat
+RUN chown -R www-data:www-data /rogodatabehat
 
 # install node
 RUN apt-get install -y nodejs
