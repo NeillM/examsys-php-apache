@@ -20,6 +20,8 @@ pipelines:
               - docker run --name examsystest -d -p 8000:80 -v ${TESTPATH}:/var/www/html ${IMAGE_NAME}
               - docker exec examsystest php /var/www/html/test.php
               - curl --fail http://127.0.0.1:8000/test.php
+              - docker exec examsystest npm -v
+              - docker exec examsystest grunt --version
               - docker rm -f examsystest
             services:
               - docker

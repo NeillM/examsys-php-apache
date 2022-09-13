@@ -1,5 +1,8 @@
 FROM php:8.0-apache
 
+ENV NODE_VERSION=16.17.0
+ENV NVM_LOC="/root/.nvm/"
+
 # Configure virtual hosts
 COPY conf/rogo.conf /etc/apache2/sites-available/rogo.conf
 
@@ -20,7 +23,6 @@ RUN apt-get update \
     libpng-dev="1.6.*" \
     libxml2-dev="2.9.*" \
     libzip-dev="1.7.*" \
-    nodejs="12.22.*" \
     ssl-cert="1.1.*" \
 # Install PHP extensions.
 && docker-php-ext-configure gd --with-freetype --with-jpeg \
@@ -40,10 +42,15 @@ RUN apt-get update \
     memcached \
     xdebug \
     xmlrpc \
-# Install node.js.
-&& curl -sL  https://www.npmjs.com/install.sh | bash - \
+# Install node.js via nvm \
+&& curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash \
+&& source "${NVM_LOC}nvm.sh" && nvm install ${NODE_VERSION} \
+&& nvm use v${NODE_VERSION} \
+&& nvm alias default v${NODE_VERSION} \
 # Cannot have sym links in docker.
 && npm config set bin-links false \
+# Install grunt globally.
+&& npm install -g grunt-cli@1.4.3 \
 # Clean up apt files to reduce the size of the image.
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/* \
@@ -60,5 +67,8 @@ RUN apt-get update \
 && chown -R www-data:www-data /rogodataunit \
 && mkdir /rogodatabehat \
 && chown -R www-data:www-data /rogodatabehat
+
+ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/bin/:${PATH}"
+ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/lib/node_modules/grunt-cli/bin/:${PATH}"
 
 WORKDIR /var/www/html
