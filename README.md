@@ -29,6 +29,7 @@ We have the following directories created and configured to be owned by www-data
 * /rogodata
 * /rogodataunit
 * /rogodatabehat
+* /faildump
 
 ## Also see
 
