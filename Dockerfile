@@ -68,7 +68,9 @@ RUN apt-get update \
 && mkdir /rogodataunit \
 && chown -R www-data:www-data /rogodataunit \
 && mkdir /rogodatabehat \
-&& chown -R www-data:www-data /rogodatabehat
+&& chown -R www-data:www-data /rogodatabehat \
+&& mkdir /faildump \
+&& chown -R www-data:www-data /faildump
 
 ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/bin/:${PATH}"
 ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/lib/node_modules/grunt-cli/bin/:${PATH}"
