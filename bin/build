@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+# Fetch the directory this script is in.
+dir=$(cd -P -- "$(dirname -- "$0")" && pwd -P)
+
+# Calculate the tag we wish to use.
+branch=$(git branch --show-current)
+if [ "$branch" == "develop" ]
+then
+ branch='latest'
+fi
+
+tag="examsys-php-apache:$branch"
+repo="uonlearningtech/$tag"
+
+echo "Building $repo"
+docker build . --file "$dir/../Dockerfile" --tag "$repo"
+echo "Finished building $repo"
