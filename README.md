@@ -6,6 +6,7 @@ A PHP environment configured for ExamSys development.
 
 | PHP Version | Tags |
 |-------------|------|
+| PHP 8.0     | 8.0  |
 | PHP 7.4     | 7.4  |
 
 ## Example useage

@@ -1,4 +1,4 @@
-FROM php:7.4-apache
+FROM php:8.0-apache
 
 # Configure virtual hosts
 COPY conf/rogo.conf /etc/apache2/sites-available/rogo.conf
@@ -22,19 +22,38 @@ RUN apt-get update \
     libzip-dev="1.7.*" \
     nodejs="12.22.*" \
     ssl-cert="1.1.*" \
+# Install PHP extensions.
 && docker-php-ext-configure gd --with-freetype --with-jpeg \
 && docker-php-ext-install -j"$(nproc)" gd \
-&& docker-php-ext-install curl xml xmlrpc mysqli intl ldap mbstring zip pdo_mysql sockets \
-&& pecl install memcached xdebug \
-&& docker-php-ext-enable memcached xdebug \
+&& docker-php-ext-install \
+    intl \
+    ldap \
+    mysqli \
+    pdo_mysql \
+    sockets \
+&& pecl install \
+    memcached \
+    xdebug \
+# Install even if it is a beta version (we should periodically check to see if there are non-beta versions available).
+&& pecl install -f xmlrpc \
+&& docker-php-ext-enable \
+    memcached \
+    xdebug \
+    xmlrpc \
+# Install node.js.
 && curl -sL  https://www.npmjs.com/install.sh | bash - \
+# Cannot have sym links in docker.
 && npm config set bin-links false \
+# Clean up apt files to reduce the size of the image.
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/* \
+# Enable Apache modules.
 && a2enmod rewrite \
 && a2enmod ssl \
+# Use the ExamSys virtual hosts configuration.
 && a2dissite 000-default \
 && a2ensite rogo \
+# Setup various directories that can be used by ExamSys.
 && mkdir /rogodata \
 && chown -R www-data:www-data /rogodata \
 && mkdir /rogodataunit \
