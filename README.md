@@ -6,6 +6,7 @@ A PHP environment configured for ExamSys development.
 
 | PHP Version | Tags |
 |-------------|------|
+| PHP 8.1     | 8.1  |
 | PHP 8.0     | 8.0  |
 | PHP 7.4     | 7.4  |
 
@@ -28,6 +29,7 @@ We have the following directories created and configured to be owned by www-data
 * /rogodata
 * /rogodataunit
 * /rogodatabehat
+* /faildump
 
 ## Also see
 
