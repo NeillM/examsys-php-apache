@@ -1,5 +1,8 @@
 FROM php:7.4-apache
 
+ENV NODE_VERSION=16.17.0
+ENV NVM_LOC="/root/.nvm/"
+
 # Configure virtual hosts
 COPY conf/rogo.conf /etc/apache2/sites-available/rogo.conf
 
@@ -20,26 +23,56 @@ RUN apt-get update \
     libpng-dev="1.6.*" \
     libxml2-dev="2.9.*" \
     libzip-dev="1.7.*" \
-    nodejs="12.22.*" \
     ssl-cert="1.1.*" \
+# Install PHP extensions.
 && docker-php-ext-configure gd --with-freetype --with-jpeg \
 && docker-php-ext-install -j"$(nproc)" gd \
-&& docker-php-ext-install curl xml xmlrpc mysqli intl ldap mbstring zip pdo_mysql sockets \
-&& pecl install memcached xdebug \
-&& docker-php-ext-enable memcached xdebug \
-&& curl -sL  https://www.npmjs.com/install.sh | bash - \
+&& docker-php-ext-install \
+    curl \
+    xml \
+    xmlrpc \
+    mysqli \
+    intl \
+    ldap \
+    mbstring \
+    zip \
+    pdo_mysql \
+    sockets \
+&& pecl install \
+    memcached \
+    xdebug \
+&& docker-php-ext-enable \
+    memcached \
+    xdebug \
+# Install node.js via nvm \
+&& curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash \
+&& source "${NVM_LOC}nvm.sh" && nvm install ${NODE_VERSION} \
+&& nvm use v${NODE_VERSION} \
+&& nvm alias default v${NODE_VERSION} \
+# Cannot have sym links in docker.
 && npm config set bin-links false \
+# Install grunt globally.
+&& npm install -g grunt-cli@1.4.3 \
+# Clean up apt files to reduce the size of the image.
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/* \
+# Enable Apache modules.
 && a2enmod rewrite \
 && a2enmod ssl \
+# Use the ExamSys virtual hosts configuration.
 && a2dissite 000-default \
 && a2ensite rogo \
+# Setup various directories that can be used by ExamSys.
 && mkdir /rogodata \
 && chown -R www-data:www-data /rogodata \
 && mkdir /rogodataunit \
 && chown -R www-data:www-data /rogodataunit \
 && mkdir /rogodatabehat \
-&& chown -R www-data:www-data /rogodatabehat
+&& chown -R www-data:www-data /rogodatabehat \
+&& mkdir /faildump \
+&& chown -R www-data:www-data /faildump
+
+ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/bin/:${PATH}"
+ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/lib/node_modules/grunt-cli/bin/:${PATH}"
 
 WORKDIR /var/www/html
