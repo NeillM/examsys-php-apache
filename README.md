@@ -35,4 +35,4 @@ We have the following directories created and configured to be owned by www-data
 
 This container is used by:
 
-* [rogo-docker](https://bitbucket.org/rogoOOS/rogo-docker) a docker composer based set of tools that setup a full ExamSys development environment.
+* [examsys-docker](https://bitbucket.org/examsys/examsys-docker) a docker composer based set of tools that setup a full ExamSys development environment.
