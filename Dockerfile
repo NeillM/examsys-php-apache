@@ -13,6 +13,7 @@ COPY conf/rogo.ini /usr/local/etc/php/conf.d/rogo.ini
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN apt-get update \
 && apt-get install --no-install-recommends -y \
+    acl="2.2.*" \
     gnupg="2.2.*" \
     libcurl4-openssl-dev="7.74.*" \
     libfreetype6-dev="2.10.*" \
@@ -63,22 +64,28 @@ RUN apt-get update \
 && a2dissite 000-default \
 && a2ensite rogo \
 # Setup various directories that can be used by ExamSys.
+# We also force them to have a specific set of group permissions so that the
+# web server will always have full control.
 && mkdir /rogodata \
 && chown -R www-data:www-data /rogodata \
 && chmod 774 /rogodata \
 && chmod g+s /rogodata \
+&& setfacl -d -m g::rwx /rogodata \
 && mkdir /rogodataunit \
 && chown -R www-data:www-data /rogodataunit \
 && chmod 774 /rogodataunit \
 && chmod g+s /rogodataunit \
+&& setfacl -d -m g::rwx /rogodataunit \
 && mkdir /rogodatabehat \
 && chown -R www-data:www-data /rogodatabehat \
 && chmod 774 /rogodatabehat \
 && chmod g+s /rogodatabehat \
+&& setfacl -d -m g::rwx /rogodatabehat \
 && mkdir /faildump \
 && chown -R www-data:www-data /faildump \
 && chmod 774 /faildump \
-&& chmod g+s /faildump
+&& chmod g+s /faildump \
+&& setfacl -d -m g::rwx /faildump
 
 ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/bin/:${PATH}"
 ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/lib/node_modules/grunt-cli/bin/:${PATH}"
