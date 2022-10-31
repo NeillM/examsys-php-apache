@@ -65,12 +65,20 @@ RUN apt-get update \
 # Setup various directories that can be used by ExamSys.
 && mkdir /rogodata \
 && chown -R www-data:www-data /rogodata \
+&& chmod 774 /rogodata \
+&& chmod g+s /rogodata \
 && mkdir /rogodataunit \
 && chown -R www-data:www-data /rogodataunit \
+&& chmod 774 /rogodataunit \
+&& chmod g+s /rogodataunit \
 && mkdir /rogodatabehat \
 && chown -R www-data:www-data /rogodatabehat \
+&& chmod 774 /rogodatabehat \
+&& chmod g+s /rogodatabehat \
 && mkdir /faildump \
-&& chown -R www-data:www-data /faildump
+&& chown -R www-data:www-data /faildump \
+&& chmod 774 /faildump \
+&& chmod g+s /faildump
 
 ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/bin/:${PATH}"
 ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/lib/node_modules/grunt-cli/bin/:${PATH}"
