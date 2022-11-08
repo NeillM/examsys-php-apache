@@ -62,29 +62,25 @@ RUN apt-get update \
 && a2enmod ssl \
 # Use the ExamSys virtual hosts configuration.
 && a2dissite 000-default \
-&& a2ensite rogo \
+&& a2ensite rogo
 # Setup various directories that can be used by ExamSys.
 # We also force them to have a specific set of group permissions so that the
 # web server will always have full control.
-&& mkdir /rogodata \
+RUN mkdir /rogodata \
 && chown -R www-data:www-data /rogodata \
-&& chmod 774 /rogodata \
-&& chmod g+s /rogodata \
+&& chmod "=774,g+s" /rogodata \
 && setfacl -d -m g::rwx /rogodata \
 && mkdir /rogodataunit \
 && chown -R www-data:www-data /rogodataunit \
-&& chmod 774 /rogodataunit \
-&& chmod g+s /rogodataunit \
+&& chmod "=774,g+s" /rogodataunit \
 && setfacl -d -m g::rwx /rogodataunit \
 && mkdir /rogodatabehat \
 && chown -R www-data:www-data /rogodatabehat \
-&& chmod 774 /rogodatabehat \
-&& chmod g+s /rogodatabehat \
+&& chmod "=774,g+s" /rogodatabehat \
 && setfacl -d -m g::rwx /rogodatabehat \
 && mkdir /faildump \
 && chown -R www-data:www-data /faildump \
-&& chmod 774 /faildump \
-&& chmod g+s /faildump \
+&& chmod "=774,g+s" /faildump \
 && setfacl -d -m g::rwx /faildump
 
 ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/bin/:${PATH}"
