@@ -15,6 +15,7 @@ RUN apt-get update \
 && apt-get install --no-install-recommends -y \
     acl="2.2.*" \
     gnupg="2.2.*" \
+    git="1:2.30.*" \
     libcurl4-openssl-dev="7.74.*" \
     libfreetype6-dev="2.10.*" \
     libjpeg62-turbo-dev="1:2.0.*" \
