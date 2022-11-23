@@ -14,7 +14,9 @@ A PHP environment configured for ExamSys development.
 
 The following command will expose the current working directory on port 8080:
 
-docker run --name web0 -p 8080:80  -v $PWD:/var/www/html uonlearningtech/examsys-php-apache:7.4
+```shell
+docker run --name web0 -p 8080:80  -v $PWD:/var/www/html uonlearningtech/examsys-php-apache:8.1
+```
 
 ## Features
 
