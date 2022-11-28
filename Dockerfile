@@ -35,6 +35,8 @@ RUN apt-get update \
     mysqli \
     pdo_mysql \
     sockets \
+# Install the zip extension to allow composer to download packages more efficiently.
+    zip \
 && pecl install \
     memcached \
     xdebug \
