@@ -23,6 +23,7 @@ docker run --name web0 -p 8080:80  -v $PWD:/var/www/html uonlearningtech/examsys
 * Preconfigured php extensions required for ExamSys
 * Serves wwwroot configured at /var/www/html
 * Xdebug is installed and enabled
+    * idekey: examsys
 
 ## Directories
 
