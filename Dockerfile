@@ -1,4 +1,4 @@
-FROM php:8.1-apache
+FROM php:8.2-apache
 
 ENV NODE_VERSION=16.17.0
 ENV NVM_LOC="/root/.nvm/"
@@ -13,14 +13,15 @@ COPY conf/rogo.ini /usr/local/etc/php/conf.d/rogo.ini
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN apt-get update \
 && apt-get install --no-install-recommends -y \
-    acl="2.2.*" \
+    acl="2.3.*" \
     gnupg="2.2.*" \
-    git="1:2.30.*" \
-    libcurl4-openssl-dev="7.74.*" \
-    libfreetype6-dev="2.10.*" \
-    libjpeg62-turbo-dev="1:2.0.*" \
-    libldap2-dev="2.4.*" \
-    libmemcached-dev="1.0.*" \
+    git="1:2.39.*" \
+    libcurl4-openssl-dev="7.88.*" \
+    libfreetype6-dev="2.12.*" \
+    libjpeg62-turbo-dev="1:2.1.*" \
+    libldap2-dev="2.5.*" \
+    libmemcached-dev="1.1.*" \
+    libssl-dev="3.0.*" \
     libonig-dev="6.9.*" \
     libpng-dev="1.6.*" \
     libxml2-dev="2.9.*" \
@@ -46,9 +47,10 @@ RUN apt-get update \
     memcached \
     xdebug \
     xmlrpc \
-# Install node.js via nvm \
-&& curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash \
-&& source "${NVM_LOC}nvm.sh" && nvm install ${NODE_VERSION} \
+# Install node.js via nvm
+&& curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash \
+&& source "${NVM_LOC}nvm.sh" \
+&& nvm install ${NODE_VERSION} \
 && nvm use v${NODE_VERSION} \
 && nvm alias default v${NODE_VERSION} \
 # Cannot have sym links in docker.
