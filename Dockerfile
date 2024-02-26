@@ -89,4 +89,7 @@ RUN mkdir /rogodata \
 ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/bin/:${PATH}"
 ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/lib/node_modules/grunt-cli/bin/:${PATH}"
 
+ENV XDEBUG_CONFIG='idekey=examsys'
+ENV PHP_IDE_CONFIG='serverName=examsys'
+
 WORKDIR /var/www/html
