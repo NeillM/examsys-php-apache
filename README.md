@@ -24,6 +24,7 @@ docker run --name web0 -p 8080:80  -v $PWD:/var/www/html uonlearningtech/examsys
 * Serves wwwroot configured at /var/www/html
 * Xdebug is installed and enabled
     * idekey: examsys
+* Will automatically map command line paths to a server configured with the name examsys in PhpStorm 
 
 ## Directories
 
