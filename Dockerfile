@@ -1,4 +1,4 @@
-FROM php:8.2-apache
+FROM php:8.3-apache
 
 ENV NODE_VERSION=16.17.0
 ENV NVM_LOC="/root/.nvm/"
