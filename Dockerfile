@@ -1,6 +1,6 @@
-FROM php:8.2-apache
+FROM php:8.3-apache
 
-ENV NODE_VERSION=16.17.0
+ENV NODE_VERSION=22.14.0
 ENV NVM_LOC="/root/.nvm/"
 
 # Configure virtual hosts
@@ -48,7 +48,7 @@ RUN apt-get update \
     xdebug \
     xmlrpc \
 # Install node.js via nvm
-&& curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash \
+&& curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash \
 && source "${NVM_LOC}nvm.sh" \
 && nvm install ${NODE_VERSION} \
 && nvm use v${NODE_VERSION} \
