@@ -66,7 +66,9 @@ RUN apt-get update \
 && a2enmod ssl \
 # Use the ExamSys virtual hosts configuration.
 && a2dissite 000-default \
-&& a2ensite rogo
+&& a2ensite rogo \
+# Ensure that composer can use git to get packages.
+&& git config --global --add safe.directory /var/www/html
 # Setup various directories that can be used by ExamSys.
 # We also force them to have a specific set of group permissions so that the
 # web server will always have full control.
