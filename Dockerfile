@@ -14,18 +14,19 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN apt-get update \
 && apt-get install --no-install-recommends -y \
     acl="2.3.*" \
-    gnupg="2.2.*" \
-    git="1:2.39.*" \
-    libcurl4-openssl-dev="7.88.*" \
-    libfreetype6-dev="2.12.*" \
+    gnupg="2.4.*" \
+    git="1:2.47.*" \
+    libicu-dev="76.*" \
+    libcurl4-openssl-dev="8.14.*" \
+    libfreetype-dev="2.13.*" \
     libjpeg62-turbo-dev="1:2.1.*" \
-    libldap2-dev="2.5.*" \
+    libldap2-dev="2.6.*" \
     libmemcached-dev="1.1.*" \
-    libssl-dev="3.0.*" \
+    libssl-dev="3.5.*" \
     libonig-dev="6.9.*" \
     libpng-dev="1.6.*" \
-    libxml2-dev="2.9.*" \
-    libzip-dev="1.7.*" \
+    libxml2-dev="2.12.*" \
+    libzip-dev="1.11.*" \
     ssl-cert="1.1.*" \
 # Install PHP extensions.
 && docker-php-ext-configure gd --with-freetype --with-jpeg \
