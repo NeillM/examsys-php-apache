@@ -16,3 +16,11 @@ repo="uonlearningtech/$tag"
 echo "Building $repo"
 docker build . --file "$dir/../Dockerfile" --tag "$repo"
 echo "Finished building $repo"
+
+# Build the version that does not have xDebug turned on
+tag="examsys-php-apache:$branch-nodebug"
+repo="uonlearningtech/$tag"
+
+echo "Building $repo"
+docker build --build-arg APACHE_CONF=rogo-nodebug.ini . --file "$dir/../Dockerfile" --tag "$repo"
+echo "Finished building $repo"

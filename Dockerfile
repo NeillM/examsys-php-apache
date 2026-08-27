@@ -1,5 +1,8 @@
 FROM php:8.3-apache
 
+# An optional argument that selects with Apache config file to use.
+ARG APACHE_CONF="rogo.ini"
+
 ENV NODE_VERSION=22.14.0
 ENV NVM_LOC="/root/.nvm/"
 
@@ -7,7 +10,7 @@ ENV NVM_LOC="/root/.nvm/"
 COPY conf/rogo.conf /etc/apache2/sites-available/rogo.conf
 
 # PHP settings
-COPY conf/rogo.ini /usr/local/etc/php/conf.d/rogo.ini
+COPY conf/rogo.ini /usr/local/etc/php/conf.d/${APACHE_CONF}
 
 # Install and configure everything!
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
