@@ -20,3 +20,15 @@ echo "Finished building $repo"
 echo "Deploying to docker hub $repo"
 docker push "$repo"
 echo "Finished deploying $repo"
+
+# Build and deploy the version that does not have xDebug turned on
+tag="examsys-php-apache:$branch-nodebug"
+repo="uonlearningtech/$tag"
+
+echo "Building $repo"
+docker build --build-arg APACHE_CONF=rogo-nodebug.ini . --file "$dir/../Dockerfile" --tag "$repo"
+echo "Finished building $repo"
+
+echo "Deploying to docker hub $repo"
+docker push "$repo"
+echo "Finished deploying $repo"
