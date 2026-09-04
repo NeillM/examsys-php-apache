@@ -10,7 +10,7 @@ ENV NVM_LOC="/root/.nvm/"
 COPY conf/rogo.conf /etc/apache2/sites-available/rogo.conf
 
 # PHP settings
-COPY conf/rogo.ini /usr/local/etc/php/conf.d/${PHP_CONF}
+COPY conf/${PHP_CONF} /usr/local/etc/php/conf.d/rogo.ini
 
 # Install and configure everything!
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
