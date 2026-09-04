@@ -22,5 +22,5 @@ tag="examsys-php-apache:$branch-nodebug"
 repo="uonlearningtech/$tag"
 
 echo "Building $repo"
-docker build --build-arg APACHE_CONF=rogo-nodebug.ini . --file "$dir/../Dockerfile" --tag "$repo"
+docker build --build-arg PHP_CONF=rogo-nodebug.ini . --file "$dir/../Dockerfile" --tag "$repo"
 echo "Finished building $repo"
