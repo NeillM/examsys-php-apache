@@ -21,7 +21,7 @@ SET tag=examsys-php-apache:%branch%-nodebug
 SET repo=uonlearningtech/%tag%
 
 echo Building %repo%
-docker build --build-arg APACHE_CONF=rogo-nodebug.ini . --file "%dockerfile%" --tag "%repo%"
+docker build --build-arg PHP_CONF=rogo-nodebug.ini . --file "%dockerfile%" --tag "%repo%"
 echo Finished building %repo%
 
 echo Deploying to docker hub %repo%
